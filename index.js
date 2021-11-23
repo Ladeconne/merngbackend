@@ -5,7 +5,7 @@ const { MONGO_URI } = require('./config');
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers/index');
 
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 5000;
 
 const server = new ApolloServer({
   typeDefs,
