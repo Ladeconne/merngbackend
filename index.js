@@ -1,7 +1,11 @@
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
-const { MONGO_URI } = require('./config');
+if (process.env.NODE_ENV === 'production') {
+  const MONGO_URI = process.env.MONGO_URI;
+} else {
+  const { MONGO_URI } = require('./config');
+}
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers/index');
 
