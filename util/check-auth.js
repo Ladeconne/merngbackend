@@ -1,8 +1,11 @@
 const { AuthenticationError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
-const { SECRET_KEY } = require('../config');
-
+if(process.env.NODE_ENV === 'production') {
+  const SECRET_KEY = process.env.SECRET_KEY;
+} else {
+  const { SECRET_KEY } = require('../../config');
+}
 module.exports.checkAuthorization = (context) => {
   const authHeaders = context.req.headers.authorization
 
