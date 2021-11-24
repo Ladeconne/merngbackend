@@ -1,11 +1,7 @@
+require('dotenv').config();
 const { ApolloServer } = require('apollo-server');
 const mongoose = require('mongoose');
 
-if (process.env.NODE_ENV === 'production') {
-  const MONGO_URI = process.env.MONGO_URI;
-} else {
-  const { MONGO_URI } = require('./config');
-}
 const typeDefs = require('./graphql/typeDefs');
 const resolvers = require('./graphql/resolvers/index');
 
@@ -17,7 +13,7 @@ const server = new ApolloServer({
   context: ({req}) => ({ req })
 })
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true })
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true })
   .then(() => {
     console.log("MongoDB is now connected");
     return server.listen({port: PORT});

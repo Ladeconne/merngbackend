@@ -1,11 +1,8 @@
 const { AuthenticationError } = require('apollo-server');
 const jwt = require('jsonwebtoken');
 
-if(process.env.NODE_ENV === 'production') {
-  const SECRET_KEY = process.env.SECRET_KEY;
-} else {
-  const { SECRET_KEY } = require('../../config');
-}
+;
+
 module.exports.checkAuthorization = (context) => {
   const authHeaders = context.req.headers.authorization
 
@@ -22,7 +19,7 @@ module.exports.checkAuthorization = (context) => {
 
   // Get the user thanks to the token, if found create the post
   try {
-    const user = jwt.verify(token, SECRET_KEY);
+    const user = jwt.verify(token, process.env.SECRET_KEY);
     if(!user){
       throw new AuthenticationError('Invalid Token')
     }
